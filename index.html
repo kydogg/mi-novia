@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una Pregunta Para Ti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 10;
+        }
+
+        .gif-container {
+            margin-bottom: 30px;
+        }
+
+        .gif-container img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #ff6b6b;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(17, 153, 142, 0.5);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(235, 51, 73, 0.4);
+            position: absolute;
+        }
+
+        /* Celebration overlay */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .celebration.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .celebration h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            animation: bounce 0.6s ease infinite alternate;
+        }
+
+        .celebration p {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .celebration-gif {
+            width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        /* Hearts animation */
+        .heart {
+            position: fixed;
+            font-size: 2rem;
+            animation: floatHeart 4s ease-in-out forwards;
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(720deg);
+            }
+        }
+
+        /* Growing animation for yes button */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .btn-yes {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHVrZnE1ZnR6dHV5MnR3cWw5a3BmZHR6NnFocGV3OXVrZnNiZHdvMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlPwMAzh13pcZ20/giphy.gif" alt="Cute love gif">
+        </div>
+        <h1>¿Me harías el honor de ser mi novia, oficialmente?</h1>
+        <div class="buttons">
+            <button class="btn btn-yes" id="yesBtn">Sí</button>
+            <button class="btn btn-no" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <h2>¡Sííííí!</h2>
+        <p>¡Sabía que dirías que sí! Te quiero mucho.</p>
+        <img class="celebration-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXA1NzRtZGV6ZWFqYzYycjQzYmIydjR1OW1hbWprOWk4YzR1Mzk4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjHV0z8S7WM4MwnK/giphy.gif" alt="Celebration">
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const celebration = document.getElementById('celebration');
+        const container = document.querySelector('.container');
+
+        let yesScale = 1;
+        let noMoveCount = 0;
+
+        // Make Yes button grow every time No button runs away
+        function growYesButton() {
+            yesScale += 0.15;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            yesBtn.style.animation = 'none';
+        }
+
+        // Make No button run away from cursor
+        function moveNoButton() {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            // Get random position within reasonable bounds
+            const maxX = window.innerWidth - btnRect.width - 20;
+            const maxY = window.innerHeight - btnRect.height - 20;
+
+            let newX = Math.random() * maxX;
+            let newY = Math.random() * maxY;
+
+            // Ensure it doesn't overlap with yes button too much
+            const yesRect = yesBtn.getBoundingClientRect();
+            if (Math.abs(newX - yesRect.left) < 150 && Math.abs(newY - yesRect.top) < 100) {
+                newX = newX < yesRect.left ? newX - 150 : newX + 150;
+            }
+
+            // Keep within bounds
+            newX = Math.max(20, Math.min(newX, maxX));
+            newY = Math.max(20, Math.min(newY, maxY));
+
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+
+            noMoveCount++;
+            growYesButton();
+
+            // Make button smaller each time it runs
+            const newScale = Math.max(0.5, 1 - (noMoveCount * 0.05));
+            noBtn.style.transform = `scale(${newScale})`;
+
+            // Change text after a few tries
+            if (noMoveCount === 3) {
+                noBtn.textContent = '¿Segura?';
+            } else if (noMoveCount === 5) {
+                noBtn.textContent = '¡Piénsalo!';
+            } else if (noMoveCount >= 7) {
+                noBtn.textContent = '¡Di que sí!';
+            }
+        }
+
+        // Initialize No button position
+        function initNoButton() {
+            const rect = noBtn.getBoundingClientRect();
+            noBtn.style.left = rect.left + 'px';
+            noBtn.style.top = rect.top + 'px';
+        }
+
+        // Event listeners
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        yesBtn.addEventListener('click', () => {
+            celebration.classList.add('active');
+            createHearts();
+        });
+
+        // Create floating hearts
+        function createHearts() {
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '🥰', '😍'];
+
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', initNoButton);
+    </script>
+</body>
+</html>
