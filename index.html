@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Una Pregunta Para Ti</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -14,6 +14,7 @@
 
         body {
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -21,14 +22,20 @@
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            padding: 20px;
+            padding: 15px;
+            touch-action: manipulation;
+        }
+
+        html {
+            height: -webkit-fill-available;
         }
 
         .stage {
             display: none;
             text-align: center;
-            max-width: 600px;
-            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px 25px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
@@ -53,52 +60,53 @@
         }
 
         .gif-container {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .gif-container img {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
             border-radius: 50%;
-            border: 5px solid #ff6b6b;
+            border: 4px solid #ff6b6b;
             box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
         }
 
         h1 {
             font-family: 'Quicksand', sans-serif;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #e74c3c;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.4;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #666;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .buttons {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            min-height: 100px;
+            min-height: 80px;
         }
 
         .btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
+            padding: 12px 30px;
+            font-size: 1rem;
             font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-yes {
@@ -107,7 +115,7 @@
             box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
         }
 
-        .btn-yes:hover {
+        .btn-yes:hover, .btn-yes:active {
             transform: scale(1.1);
             box-shadow: 0 15px 40px rgba(17, 153, 142, 0.5);
         }
@@ -117,6 +125,7 @@
             color: white;
             box-shadow: 0 10px 30px rgba(235, 51, 73, 0.4);
             position: absolute;
+            white-space: nowrap;
         }
 
         /* Celebration overlay */
@@ -148,10 +157,12 @@
         .celebration-content {
             text-align: center;
             background: rgba(255, 255, 255, 0.95);
-            padding: 50px;
+            padding: 30px 25px;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             animation: celebrationPop 0.6s ease;
+            max-width: 90%;
+            width: 400px;
         }
 
         @keyframes celebrationPop {
@@ -170,34 +181,34 @@
 
         .celebration h2 {
             font-family: 'Quicksand', sans-serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: #e74c3c;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             animation: bounce 0.6s ease infinite alternate;
         }
 
         .celebration p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .celebration-gif {
-            width: 300px;
+            width: 200px;
+            max-width: 80%;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
 
         @keyframes bounce {
             from { transform: translateY(0); }
-            to { transform: translateY(-20px); }
+            to { transform: translateY(-15px); }
         }
 
         /* Hearts animation */
         .heart {
             position: fixed;
-            font-size: 2rem;
+            font-size: 1.5rem;
             animation: floatHeart 4s ease-in-out forwards;
             z-index: 150;
             pointer-events: none;
@@ -233,6 +244,64 @@
 
         .stage-3 h1 { color: #9b59b6; }
         .stage-3 .gif-container img { border-color: #9b59b6; }
+
+        /* Mobile responsive adjustments */
+        @media (min-width: 480px) {
+            .stage {
+                padding: 40px;
+            }
+
+            .gif-container img {
+                width: 180px;
+                height: 180px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                padding: 15px 40px;
+                font-size: 1.1rem;
+            }
+
+            .celebration h2 {
+                font-size: 3rem;
+            }
+
+            .celebration p {
+                font-size: 1.4rem;
+            }
+
+            .celebration-gif {
+                width: 250px;
+            }
+
+            .heart {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .gif-container img {
+                width: 200px;
+                height: 200px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .celebration-content {
+                padding: 50px;
+            }
+        }
+
+        /* Prevent text selection on buttons */
+        .btn {
+            -webkit-user-select: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -241,11 +310,11 @@
         <div class="gif-container">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnBrY2RhZTk2cWg0N2FtOGQ1Z2x4cXRhcXRzYnVsMjU0ZWVocWpkNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Curious gif">
         </div>
-        <h1>Tengo una pregunta para ti...</h1>
-        <p class="subtitle">¿Estás lista?</p>
+        <h1>Oye, tengo algo que preguntarte...</h1>
+        <p class="subtitle">¿Estás lista, mi amor?</p>
         <div class="buttons">
-            <button class="btn btn-yes" data-stage="0">Sí</button>
-            <button class="btn btn-no" data-stage="0">No</button>
+            <button class="btn btn-yes" data-stage="0">Dale</button>
+            <button class="btn btn-no" data-stage="0">Ahorita no</button>
         </div>
     </div>
 
@@ -254,9 +323,9 @@
         <div class="gif-container">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzRtcHQxbDF0YnI2OGlpMXF5OGU3cHk0cGpzOWswZXBsMmpmenZsZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26FLdmIp6wJr91JAI/giphy.gif" alt="Cute love gif">
         </div>
-        <h1>¿Me harías el honor de ser mi novia, oficialmente?</h1>
+        <h1>¿Quieres ser mi novia, oficialmente?</h1>
         <div class="buttons">
-            <button class="btn btn-yes" data-stage="1">Sí</button>
+            <button class="btn btn-yes" data-stage="1">¡Sí!</button>
             <button class="btn btn-no" data-stage="1">No</button>
         </div>
     </div>
@@ -266,11 +335,11 @@
         <div class="gif-container">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2RtNnZ5cXB3NnBwdDRhOWF5MWRyMHVmMHRtcmp2NTMwdnM2dmNyMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT0GqssRweIhlz209i/giphy.gif" alt="Excited gif">
         </div>
-        <h1>¿Estás segura?</h1>
-        <p class="subtitle">Solo quiero estar 100% seguro...</p>
+        <h1>¿De ley?</h1>
+        <p class="subtitle">Solo quiero estar bien seguro, mi vida...</p>
         <div class="buttons">
-            <button class="btn btn-yes" data-stage="2">¡Claro que sí!</button>
-            <button class="btn btn-no" data-stage="2">Mmm no sé...</button>
+            <button class="btn btn-yes" data-stage="2">¡Claro que sí, tonto!</button>
+            <button class="btn btn-no" data-stage="2">Mmm no sé pues...</button>
         </div>
     </div>
 
@@ -280,19 +349,19 @@
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaW1nZjg4NzZ5Yjl4dHdqYjF0dWRyNWRzM2E4cXBhMnhxNnJheTVpZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4pTdcifPZLpDjL1e/giphy.gif" alt="Pleading gif">
         </div>
         <h1>Última oportunidad para arrepentirte...</h1>
-        <p class="subtitle">Después de esto, eres oficialmente mía</p>
+        <p class="subtitle">Después de esto, ya eres mía</p>
         <div class="buttons">
             <button class="btn btn-yes" data-stage="3">¡SÍÍÍÍ!</button>
-            <button class="btn btn-no" data-stage="3">Mejor no...</button>
+            <button class="btn btn-no" data-stage="3">Nel...</button>
         </div>
     </div>
 
     <!-- Celebration -->
     <div class="celebration" id="celebration">
         <div class="celebration-content">
-            <h2>¡Sííííí!</h2>
-            <p>¡Sabía que dirías que sí! Te quiero mucho.</p>
-            <img class="celebration-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXA1NzRtZGV6ZWFqYzYycjQzYmIydjR1OW1hbWprOWk4YzR1Mzk4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjHV0z8S7WM4MwnK/giphy.gif" alt="Celebration">
+            <h2>¡Chévere!</h2>
+            <p>¡Sabía que dirías que sí! Te quiero mucho, mi amor.</p>
+            <img class="celebration-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXcxbzFqY2N5MWdwazFhbm1ycWY4cXd4OWQycmQzNHQzY2t1dGVheiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif" alt="Cat kiss">
         </div>
     </div>
 
@@ -326,7 +395,7 @@
         // Make Yes button grow
         function growYesButton(stageNum) {
             const { yesBtn } = getButtons(stageNum);
-            stageState[stageNum].yesScale += 0.15;
+            stageState[stageNum].yesScale += 0.12;
             yesBtn.style.transform = `scale(${stageState[stageNum].yesScale})`;
             yesBtn.style.animation = 'none';
         }
@@ -336,20 +405,36 @@
             const { yesBtn, noBtn } = getButtons(stageNum);
             const state = stageState[stageNum];
 
-            const maxX = window.innerWidth - 120;
-            const maxY = window.innerHeight - 60;
+            // Get button dimensions
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
 
-            let newX = Math.random() * maxX;
-            let newY = Math.random() * maxY;
+            // Calculate safe bounds with padding
+            const padding = 20;
+            const maxX = window.innerWidth - btnWidth - padding;
+            const maxY = window.innerHeight - btnHeight - padding;
 
-            // Avoid yes button
+            // Generate random position
+            let newX = padding + Math.random() * (maxX - padding);
+            let newY = padding + Math.random() * (maxY - padding);
+
+            // Avoid yes button area
             const yesRect = yesBtn.getBoundingClientRect();
-            if (Math.abs(newX - yesRect.left) < 150 && Math.abs(newY - yesRect.top) < 100) {
-                newX = newX < yesRect.left ? newX - 150 : newX + 150;
+            const avoidRadius = 120;
+
+            if (Math.abs(newX - yesRect.left) < avoidRadius &&
+                Math.abs(newY - yesRect.top) < avoidRadius) {
+                // Move to opposite side
+                if (newX < window.innerWidth / 2) {
+                    newX = Math.min(maxX, newX + avoidRadius + 50);
+                } else {
+                    newX = Math.max(padding, newX - avoidRadius - 50);
+                }
             }
 
-            newX = Math.max(20, Math.min(newX, maxX));
-            newY = Math.max(20, Math.min(newY, maxY));
+            // Ensure within bounds
+            newX = Math.max(padding, Math.min(newX, maxX));
+            newY = Math.max(padding, Math.min(newY, maxY));
 
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
@@ -357,18 +442,18 @@
             state.noMoveCount++;
             growYesButton(stageNum);
 
-            // Only start shrinking after 4th attempt (changed from 3rd)
+            // Only start shrinking after 4th attempt
             if (state.noMoveCount >= 4) {
                 const newScale = Math.max(0.5, 1 - ((state.noMoveCount - 3) * 0.08));
                 noBtn.style.transform = `scale(${newScale})`;
             }
 
-            // Change text based on stage and count (adjusted thresholds)
+            // Change text based on stage and count
             const noTexts = [
-                ['¿No estás lista?', '¡Vamos!', '¡Sí lo estás!'],
-                ['¿Segura?', '¡Piénsalo!', '¡Di que sí!'],
-                ['¿De verdad?', '¡Vamos!', '¡Por favor!'],
-                ['¿En serio?', '¡Última chance!', '¡Ya dí sí!']
+                ['¿No estás lista?', '¡Vamos pues!', '¡Sí lo estás!'],
+                ['¿Segura?', '¡Piénsalo bien!', '¡Di que sí!'],
+                ['¿De verdad?', '¡Ándale!', '¡Por favor!'],
+                ['¿En serio?', '¡Ya pues!', '¡Dale nomás!']
             ];
 
             if (state.noMoveCount === 4) {
@@ -407,18 +492,18 @@
         function createHearts() {
             const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '🥰', '😍', '💘', '💞'];
 
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.className = 'heart';
                     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                     heart.style.left = Math.random() * 100 + 'vw';
                     heart.style.top = '100vh';
-                    heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                    heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
                     document.body.appendChild(heart);
 
                     setTimeout(() => heart.remove(), 4000);
-                }, i * 80);
+                }, i * 100);
             }
         }
 
@@ -429,15 +514,34 @@
 
             yesBtn.addEventListener('click', nextStage);
 
+            // Mouse events
             noBtn.addEventListener('mouseenter', () => moveNoButton(index));
+
+            // Touch events for mobile
             noBtn.addEventListener('touchstart', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 moveNoButton(index);
-            });
+            }, { passive: false });
+
+            // Also handle touchmove to prevent scrolling when touching the button
+            noBtn.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+            }, { passive: false });
         });
 
-        // Initialize first stage
+        // Initialize first stage and handle resize
+        function handleResize() {
+            if (stages[currentStage]) {
+                initNoButton(currentStage);
+            }
+        }
+
         window.addEventListener('load', () => initNoButton(0));
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(handleResize, 100);
+        });
     </script>
 </body>
 </html>
