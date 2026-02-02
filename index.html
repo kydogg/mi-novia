@@ -223,6 +223,9 @@
         }
 
         /* Stage-specific colors */
+        .stage-intro h1 { color: #3498db; }
+        .stage-intro .gif-container img { border-color: #3498db; }
+
         .stage-2 h1 { color: #e67e22; }
         .stage-2 .gif-container img { border-color: #e67e22; }
 
@@ -231,10 +234,23 @@
     </style>
 </head>
 <body>
-    <!-- Stage 1: The Question -->
-    <div class="stage active" id="stage1">
+    <!-- Stage 0: Intro - Are you ready? -->
+    <div class="stage stage-intro active" id="stage0">
         <div class="gif-container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHVrZnE1ZnR6dHV5MnR3cWw5a3BmZHR6NnFocGV3OXVrZnNiZHdvMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlPwMAzh13pcZ20/giphy.gif" alt="Cute love gif">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnBrY2RhZTk2cWg0N2FtOGQ1Z2x4cXRhcXRzYnVsMjU0ZWVocWpkNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Curious gif">
+        </div>
+        <h1>Tengo una pregunta para ti...</h1>
+        <p class="subtitle">¿Estás lista?</p>
+        <div class="buttons">
+            <button class="btn btn-yes" data-stage="0">Sí</button>
+            <button class="btn btn-no" data-stage="0">No</button>
+        </div>
+    </div>
+
+    <!-- Stage 1: The Question -->
+    <div class="stage" id="stage1">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzRtcHQxbDF0YnI2OGlpMXF5OGU3cHk0cGpzOWswZXBsMmpmenZsZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26FLdmIp6wJr91JAI/giphy.gif" alt="Cute love gif">
         </div>
         <h1>¿Me harías el honor de ser mi novia, oficialmente?</h1>
         <div class="buttons">
@@ -280,6 +296,7 @@
 
     <script>
         const stages = [
+            document.getElementById('stage0'),
             document.getElementById('stage1'),
             document.getElementById('stage2'),
             document.getElementById('stage3')
@@ -289,6 +306,7 @@
 
         // Track state per stage
         const stageState = [
+            { yesScale: 1, noMoveCount: 0 },
             { yesScale: 1, noMoveCount: 0 },
             { yesScale: 1, noMoveCount: 0 },
             { yesScale: 1, noMoveCount: 0 }
@@ -337,22 +355,25 @@
             state.noMoveCount++;
             growYesButton(stageNum);
 
-            // Shrink no button
-            const newScale = Math.max(0.5, 1 - (state.noMoveCount * 0.05));
-            noBtn.style.transform = `scale(${newScale})`;
+            // Only start shrinking after 4th attempt (changed from 3rd)
+            if (state.noMoveCount >= 4) {
+                const newScale = Math.max(0.5, 1 - ((state.noMoveCount - 3) * 0.08));
+                noBtn.style.transform = `scale(${newScale})`;
+            }
 
-            // Change text based on stage and count
+            // Change text based on stage and count (adjusted thresholds)
             const noTexts = [
+                ['¿No estás lista?', '¡Vamos!', '¡Sí lo estás!'],
                 ['¿Segura?', '¡Piénsalo!', '¡Di que sí!'],
                 ['¿De verdad?', '¡Vamos!', '¡Por favor!'],
                 ['¿En serio?', '¡Última chance!', '¡Ya dí sí!']
             ];
 
-            if (state.noMoveCount === 3) {
+            if (state.noMoveCount === 4) {
                 noBtn.textContent = noTexts[stageNum][0];
-            } else if (state.noMoveCount === 5) {
+            } else if (state.noMoveCount === 6) {
                 noBtn.textContent = noTexts[stageNum][1];
-            } else if (state.noMoveCount >= 7) {
+            } else if (state.noMoveCount >= 8) {
                 noBtn.textContent = noTexts[stageNum][2];
             }
         }
